@@ -44,6 +44,7 @@ namespace Player
                     pathActivity.Key.Item1 == _lastPoint && pathActivity.Value)
                 .Key.Item2;
 
+            _progressToNext = 0;
             _isNextSet = true;
         }
         
@@ -73,7 +74,10 @@ namespace Player
         {
             // Checks if the next node is a finish, dead end, etc/
             if (nodeEvents.IsNodeFinal(Graph.PointTypes[_nextPoint]))
+            {
+                enabled = false;
                 return;
+            }
 
             _lastPoint = _nextPoint;
             GetNextPoint();

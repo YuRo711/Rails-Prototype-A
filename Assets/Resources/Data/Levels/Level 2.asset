@@ -27,7 +27,11 @@ MonoBehaviour:
       right: 1
     right: 1
   - left:
-      left: 0
-      right: 1
+      left: 1
+      right: 2
+    right: 0
+  - left:
+      left: 1
+      right: 3
     right: 1
   cellSize: 2
