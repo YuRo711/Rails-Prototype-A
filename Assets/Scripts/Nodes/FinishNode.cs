@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Nodes
 {
-    public abstract class Node : MonoBehaviour
+    public class FinishNode : MonoBehaviour, INode
     {
         
     }

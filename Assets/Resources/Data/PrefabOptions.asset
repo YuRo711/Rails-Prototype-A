@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: PrefabOptions
   m_EditorClassIdentifier: 
   linePrefab: {fileID: 4314513290999370310, guid: 8e46c6874acfee4519420c1bfd146441, type: 3}
-  nodePrefabs: []
+  nodePrefabs:
+  - left: 0
+    right: {fileID: 7129942644224175996, guid: 743660fa0f1d18532aa675ff4315a982, type: 3}
+  - left: 1
+    right: {fileID: 2937938611494225335, guid: 29e1fb8f554fc2321a4e8b155659621c, type: 3}

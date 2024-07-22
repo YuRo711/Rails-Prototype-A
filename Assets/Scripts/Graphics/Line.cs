@@ -26,21 +26,12 @@ namespace Graphics
         }
         
         /// <summary>
-        /// Sets the color to active
+        /// Sets the color according to activity
         /// </summary>
-        public void Activate()
+        public void SetPathActive(bool isActive)
         {
-            lineRenderer.startColor = activeColor;
-            lineRenderer.endColor = activeColor;
-        }
-        
-        /// <summary>
-        /// Sets the color to inactive
-        /// </summary>
-        public void Deactivate()
-        {
-            lineRenderer.startColor = inactiveColor;
-            lineRenderer.endColor = inactiveColor;
+            lineRenderer.startColor = isActive ? activeColor : inactiveColor;
+            lineRenderer.endColor = isActive ? activeColor : inactiveColor;
         }
 
         #endregion
@@ -56,6 +47,8 @@ namespace Graphics
             // If either of the points isn't default (0, 0, 0), connect them
             if (startPoint != default || endPoint != default)
                 Connect(startPoint, endPoint);
+            
+            SetPathActive(false);
         }
 
         #endregion

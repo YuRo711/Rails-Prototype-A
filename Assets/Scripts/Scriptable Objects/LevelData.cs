@@ -1,5 +1,6 @@
 using Nodes;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace ScriptableObjects
@@ -13,9 +14,11 @@ namespace ScriptableObjects
         #region Fields
 
         public SerializablePair<Vector2Int, NodeType>[] nodeCoordinates;
+        
         // A pair of node indexes and is the path active
         public SerializablePair<SerializablePair<int, int>, bool>[] nodeConnectionsActivity;
-        public readonly float CellSize = 1f;
+        
+        public float cellSize = 1f;
 
         #endregion
     }

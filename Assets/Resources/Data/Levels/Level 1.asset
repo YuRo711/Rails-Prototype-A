@@ -22,3 +22,4 @@ MonoBehaviour:
       left: 0
       right: 1
     right: 1
+  cellSize: 3

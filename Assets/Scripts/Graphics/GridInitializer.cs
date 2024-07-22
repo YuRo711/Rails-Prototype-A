@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logic;
 using Nodes;
 using ScriptableObjects;
 using UnityEngine;
@@ -13,8 +14,9 @@ namespace Graphics
 
         [SerializeField] private LevelData levelData;
         [SerializeField] private PrefabOptions prefabOptions;
+        [SerializeField] private Graph graph;
 
-        private List<Node> _nodes;
+        private readonly List<GameObject> _nodes = new();
 
         #endregion
 
@@ -25,18 +27,35 @@ namespace Graphics
         /// </summary>
         private void InitializeGrid()
         {
+            CreateNodes();
+            CreatePaths();
+        }
+
+        private void CreateNodes()
+        {
             foreach (var nodeData in levelData.nodeCoordinates)
             {
                 // Find the prefab of the node type
                 var prefab = prefabOptions.nodePrefabs
-                    .First(pair => pair.left == nodeData.right)
+                    .First(prefabPair => prefabPair.left.Equals(nodeData.right))
                     .right;
-                var coords = (Vector2)nodeData.left * levelData.CellSize;
+                var coords = (Vector2)nodeData.left * levelData.cellSize;
                 
                 CreateNode(prefab, coords);
             }
         }
 
+        private void CreatePaths()
+        {
+            
+            foreach (var pathNodes in levelData.nodeConnectionsActivity)
+            {
+                var isActive = pathNodes.right;
+                var nodeIndexes = pathNodes.left;
+                
+                CreatePath(_nodes[nodeIndexes.left], _nodes[nodeIndexes.right], isActive);
+            }
+        }
 
         /// <summary>
         /// Creates a node from prefab on coordinates
@@ -44,9 +63,19 @@ namespace Graphics
         private void CreateNode(GameObject nodePrefab, Vector3 coords)
         {
             var nodeObject = Instantiate(nodePrefab, coords, Quaternion.identity, transform);
+            _nodes.Add(nodeObject);
+        }
 
-            var node = nodeObject.GetComponent<Node>();
-            _nodes.Add(node);
+        /// <summary>
+        /// Creates a line between nodes
+        /// </summary>
+        private void CreatePath(GameObject start, GameObject finish, bool isActive)
+        {
+            var lineObject = Instantiate(prefabOptions.linePrefab, start.transform);
+            var line = lineObject.GetComponent<Line>();
+            
+            line.Connect(start.transform.position, finish.transform.position);
+            line.SetPathActive(isActive);
         }
 
         #endregion
