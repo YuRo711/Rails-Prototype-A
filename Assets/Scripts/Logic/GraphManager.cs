@@ -10,7 +10,7 @@ namespace Graphics
     {
         #region Fields
         
-        public readonly Graph Graph = new();
+        public Graph Graph = new();
         public static GraphManager Instance;
 
         [SerializeField] private GameEvent pathsUpdateEvent;
@@ -25,12 +25,18 @@ namespace Graphics
             pathsUpdateEvent.Raise();
         }
 
+        public void Reload()
+        {
+            Graph = new();
+        }
+
         #endregion
 
         #region MB Callbacks
 
         private void Awake()
         {
+            Reload();
             if (Instance == null)
                 Instance = this;
             else

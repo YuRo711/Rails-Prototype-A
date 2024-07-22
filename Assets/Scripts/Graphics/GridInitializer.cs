@@ -16,13 +16,59 @@ namespace Graphics
 
         [SerializeField] private LevelData levelData;
         [SerializeField] private PrefabOptions prefabOptions;
+        [SerializeField] private GameEvent loadLevelEvent;
         
         private readonly List<GameObject> _nodes = new();
+        private readonly List<GameObject> _edges = new();
         private Graph _graph;
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Reloads current level
+        /// </summary>
+        public void Retry()
+        {
+            LoadLevel(levelData);
+        }
+
+        /// <summary>
+        /// Loads next level
+        /// </summary>
+        public void NextLevel()
+        {
+            if (levelData.nextLevel == null) 
+                return;
+            
+            LoadLevel(levelData.nextLevel);
+        }
+
+        /// <summary>
+        /// Loads level from LevelData
+        /// </summary>
+        private void LoadLevel(LevelData level)
+        {
+            levelData = level;
+            loadLevelEvent.Raise();
+            ClearGrid();
+            InitializeGrid();
+        }
+
+        /// <summary>
+        /// Destroys all current nodes and edges
+        /// </summary>
+        private void ClearGrid()
+        {
+            foreach (var node in _nodes)
+                Destroy(node);
+
+            foreach (var edge in _edges)
+                Destroy(edge);
+
+            Destroy(FindObjectOfType<PlayerMovement>().gameObject);
+        }
 
         /// <summary>
         /// Initializes level grid and its objects
@@ -81,6 +127,8 @@ namespace Graphics
             var line = lineObject.GetComponent<Line>();
             var startCoords = start.transform.position;
             var finishCoords = finish.transform.position;
+            
+            _edges.Add(lineObject);
 
             var pathCoords = Tuple.Create(startCoords, finishCoords);
             _graph.PathsActivity[pathCoords] = isActive;

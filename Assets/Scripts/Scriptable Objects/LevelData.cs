@@ -20,6 +20,8 @@ namespace ScriptableObjects
         
         public float cellSize = 1f;
 
+        public LevelData nextLevel;
+
         #endregion
     }
 }

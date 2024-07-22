@@ -89,8 +89,7 @@ namespace Player
 
         private void Update()
         {
-            if (_graph == null) 
-                _graph = GraphManager.Instance.Graph;
+            _graph ??= GraphManager.Instance.Graph;
             if (!_isNextSet)
                 GetNextPoint();
             
