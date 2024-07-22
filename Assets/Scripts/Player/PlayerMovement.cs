@@ -4,6 +4,7 @@ using Logic;
 using Nodes;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -14,11 +15,12 @@ namespace Player
         public Graph Graph;
         
         [SerializeField] private float speed;
-        [SerializeField] private GameEvent winEvent;
-
+        [SerializeField] private NodeEvents nodeEvents;
+        
         private Vector3 _lastPoint;
         private Vector3 _nextPoint;
         private float _progressToNext;
+        private bool _isNextSet;
 
         #endregion
         
@@ -41,7 +43,8 @@ namespace Player
                 .First(pathActivity =>
                     pathActivity.Key.Item1 == _lastPoint && pathActivity.Value)
                 .Key.Item2;
-            Debug.Log(_nextPoint);
+
+            _isNextSet = true;
         }
         
         /// <summary>
@@ -68,12 +71,9 @@ namespace Player
         /// </summary>
         private void UpdatePoint()
         {
-            // Raises level win event if the point is a finish
-            if (Graph.PointTypes[_nextPoint] == NodeType.Finish)
-            {
-                winEvent.Raise();
+            // Checks if the next node is a finish, dead end, etc/
+            if (nodeEvents.IsNodeFinal(Graph.PointTypes[_nextPoint]))
                 return;
-            }
 
             _lastPoint = _nextPoint;
             GetNextPoint();
@@ -87,12 +87,11 @@ namespace Player
         {
             if (Graph == null) 
                 return;
-            if (_nextPoint == default)
+            if (!_isNextSet)
                 GetNextPoint();
             
             Move();
         }
-
         #endregion
     }
 }

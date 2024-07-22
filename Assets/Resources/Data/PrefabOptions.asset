@@ -18,4 +18,8 @@ MonoBehaviour:
     right: {fileID: 7129942644224175996, guid: 743660fa0f1d18532aa675ff4315a982, type: 3}
   - left: 1
     right: {fileID: 2937938611494225335, guid: 29e1fb8f554fc2321a4e8b155659621c, type: 3}
+  - left: 2
+    right: {fileID: 2937938611494225335, guid: 29e1fb8f554fc2321a4e8b155659621c, type: 3}
+  - left: 3
+    right: {fileID: 7129942644224175996, guid: 7223b33109ebf79b0aba519820e064df, type: 3}
   playerPrefab: {fileID: 8026392529629323797, guid: 92ef783741fb4af40a0ce32362c725b3, type: 3}
