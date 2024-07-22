@@ -27,7 +27,7 @@ namespace Graphics
 
         public void Reload()
         {
-            Graph = new();
+            Graph.Clear();
         }
 
         #endregion

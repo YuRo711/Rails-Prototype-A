@@ -63,9 +63,11 @@ namespace Graphics
         {
             foreach (var node in _nodes)
                 Destroy(node);
+            _nodes.Clear();
 
             foreach (var edge in _edges)
                 Destroy(edge);
+            _edges.Clear();
 
             Destroy(FindObjectOfType<PlayerMovement>().gameObject);
         }
@@ -90,7 +92,6 @@ namespace Graphics
 
         private void CreatePaths()
         {
-            
             foreach (var pathNodes in levelData.nodeConnectionsActivity)
             {
                 var isActive = pathNodes.right;
@@ -138,13 +139,19 @@ namespace Graphics
             
         }
 
+        private void SetGraph()
+        {
+            
+            _graph = GraphManager.Instance.Graph;
+        }
+
         #endregion
 
         #region MB Callbacks
 
         private void Awake()
         {
-            _graph = GraphManager.Instance.Graph;
+            SetGraph();
             InitializeGrid();
         }
 

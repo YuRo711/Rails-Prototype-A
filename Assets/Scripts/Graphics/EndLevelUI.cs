@@ -30,6 +30,13 @@ namespace Graphics
             winUI.SetActive(true);
         }
 
+        public void HideUI()
+        {
+            overlay.enabled = false;
+            winUI.SetActive(false);
+            gameOverUI.SetActive(false);
+        }
+
         #endregion
     }
 }

@@ -42,6 +42,13 @@ namespace Logic
             PathsActivity[activePath.Key] = false;
             PathsActivity[inactivePath.Key] = true;
         }
+
+        public void Clear()
+        {
+            PathsActivity.Clear();
+            PointTypes.Clear();
+            JunctionCoords.Clear();
+        }
     }
 }
 

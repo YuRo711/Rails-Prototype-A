@@ -39,6 +39,9 @@ namespace Player
         /// </summary>
         public void GetNextPoint()
         {
+            if (_graph.PathsActivity.Count == 0)
+                return;
+            
             _nextPoint = _graph.PathsActivity
                 .First(pathActivity =>
                     pathActivity.Key.Item1 == _lastPoint && pathActivity.Value)

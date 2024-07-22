@@ -981,6 +981,7 @@ GameObject:
   - component: {fileID: 1813414101}
   - component: {fileID: 1813414103}
   - component: {fileID: 1813414102}
+  - component: {fileID: 1813414104}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1172,6 +1173,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1813414101}
         m_TargetAssemblyTypeName: Graphics.EndLevelUI, Assembly-CSharp
         m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1813414104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813414094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdf2b31781da42abb6dbecc569d7dc58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 696aefad8495a57829ed6ed5f2689801, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1813414101}
+        m_TargetAssemblyTypeName: Graphics.EndLevelUI, Assembly-CSharp
+        m_MethodName: HideUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
