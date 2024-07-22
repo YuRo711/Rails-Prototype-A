@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Logic;
 using Nodes;
+using Player;
 using ScriptableObjects;
 using UnityEngine;
+using Utils;
 
 namespace Graphics
 {
@@ -14,9 +16,9 @@ namespace Graphics
 
         [SerializeField] private LevelData levelData;
         [SerializeField] private PrefabOptions prefabOptions;
-        [SerializeField] private Graph graph;
-
+        
         private readonly List<GameObject> _nodes = new();
+        private readonly Graph _graph = new();
 
         #endregion
 
@@ -29,19 +31,15 @@ namespace Graphics
         {
             CreateNodes();
             CreatePaths();
+            FindObjectOfType<PlayerMovement>().Graph = _graph;
         }
 
         private void CreateNodes()
         {
             foreach (var nodeData in levelData.nodeCoordinates)
             {
-                // Find the prefab of the node type
-                var prefab = prefabOptions.nodePrefabs
-                    .First(prefabPair => prefabPair.left.Equals(nodeData.right))
-                    .right;
                 var coords = (Vector2)nodeData.left * levelData.cellSize;
-                
-                CreateNode(prefab, coords);
+                CreateNode(nodeData.right, coords);
             }
         }
 
@@ -58,12 +56,18 @@ namespace Graphics
         }
 
         /// <summary>
-        /// Creates a node from prefab on coordinates
+        /// Creates a node from type prefab on coordinates
         /// </summary>
-        private void CreateNode(GameObject nodePrefab, Vector3 coords)
+        private void CreateNode(NodeType nodeType, Vector3 coords)
         {
-            var nodeObject = Instantiate(nodePrefab, coords, Quaternion.identity, transform);
+            // Find the prefab of the node type
+            var prefab = prefabOptions.nodePrefabs
+                .First(prefabPair => prefabPair.left.Equals(nodeType))
+                .right;
+            
+            var nodeObject = Instantiate(prefab, coords, Quaternion.identity, transform);
             _nodes.Add(nodeObject);
+            _graph.PointTypes[nodeObject.transform.position] = nodeType;
         }
 
         /// <summary>
@@ -73,9 +77,15 @@ namespace Graphics
         {
             var lineObject = Instantiate(prefabOptions.linePrefab, start.transform);
             var line = lineObject.GetComponent<Line>();
+            var startCoords = start.transform.position;
+            var finishCoords = finish.transform.position;
+
+            var pathCoords = Tuple.Create(startCoords, finishCoords);
+            _graph.PathsActivity[pathCoords] = isActive;
             
-            line.Connect(start.transform.position, finish.transform.position);
+            line.Connect(startCoords, finishCoords);
             line.SetPathActive(isActive);
+            
         }
 
         #endregion

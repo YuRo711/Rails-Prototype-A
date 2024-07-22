@@ -13,7 +13,10 @@ namespace ScriptableObjects
         #region Fields
 
         public GameObject linePrefab;
+        
         public SerializablePair<NodeType, GameObject>[] nodePrefabs;
+        
+        public GameObject playerPrefab;
 
         #endregion
     }

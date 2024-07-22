@@ -10,5 +10,11 @@ namespace Utils
     {
         public T1 left;
         public T2 right;
+
+        public SerializablePair(T1 _left, T2 _right)
+        {
+            left = _left;
+            right = _right;
+        }
     }
 }
