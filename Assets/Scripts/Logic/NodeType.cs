@@ -4,7 +4,8 @@ namespace Nodes
     {
         Start,
         Finish,
-        Junction,
+        JunctionLeft,
+        JunctionRight,
         DeadEnd,
     }
 }

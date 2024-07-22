@@ -15,11 +15,11 @@ MonoBehaviour:
   nodeCoordinates:
   - left: {x: 0, y: 2}
     right: 0
-  - left: {x: 0, y: -1}
+  - left: {x: 0, y: 0}
     right: 2
-  - left: {x: -2, y: -1}
-    right: 1
-  - left: {x: 2, y: -2}
+  - left: {x: 0, y: -2}
+    right: 4
+  - left: {x: 2, y: 0}
     right: 1
   nodeConnectionsActivity:
   - left:
@@ -29,9 +29,9 @@ MonoBehaviour:
   - left:
       left: 1
       right: 2
-    right: 0
+    right: 1
   - left:
       left: 1
       right: 3
-    right: 1
+    right: 0
   cellSize: 2

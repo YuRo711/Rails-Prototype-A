@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d61649f319924fd6a3aac39941ee532f, type: 3}
-  m_Name: NodeEvents
+  m_Script: {fileID: 11500000, guid: e0abb45b05174f15831dc306d260b51b, type: 3}
+  m_Name: GameOver
   m_EditorClassIdentifier: 
-  winEvent: {fileID: 11400000, guid: bd1f14ad8f415cfbaa91ddca7b65a363, type: 2}
-  loseEvent: {fileID: 11400000, guid: de070558bee1848b6803ac4ac1b0484e, type: 2}
+  listeners: []
