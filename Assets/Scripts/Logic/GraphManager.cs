@@ -1,5 +1,7 @@
 using System;
 using Logic;
+using Nodes;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Graphics
@@ -9,8 +11,19 @@ namespace Graphics
         #region Fields
         
         public readonly Graph Graph = new();
-
         public static GraphManager Instance;
+
+        [SerializeField] private GameEvent pathsUpdateEvent;
+
+        #endregion
+
+        #region MyRegion
+
+        public void ChangeDirection(JunctionNode junctionNode)
+        {
+            Graph.ChangeDirection(junctionNode);
+            pathsUpdateEvent.Raise();
+        }
 
         #endregion
 

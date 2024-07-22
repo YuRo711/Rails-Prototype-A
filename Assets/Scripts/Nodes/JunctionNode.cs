@@ -1,4 +1,5 @@
 using System;
+using Graphics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -23,6 +24,7 @@ namespace Nodes
         {
             isTurnedRight = !isTurnedRight;
             UpdateSprite();
+            GraphManager.Instance.ChangeDirection(this);
         }
 
         private void UpdateSprite()

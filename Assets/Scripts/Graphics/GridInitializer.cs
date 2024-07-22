@@ -18,6 +18,7 @@ namespace Graphics
         [SerializeField] private PrefabOptions prefabOptions;
         
         private readonly List<GameObject> _nodes = new();
+        private Graph _graph;
 
         #endregion
 
@@ -65,7 +66,10 @@ namespace Graphics
             
             var nodeObject = Instantiate(prefab, coords, Quaternion.identity, transform);
             _nodes.Add(nodeObject);
-            GraphManager.Instance.Graph.PointTypes[nodeObject.transform.position] = nodeType;
+            
+            _graph.PointTypes[nodeObject.transform.position] = nodeType;
+            if (nodeType == NodeType.JunctionLeft || nodeType == NodeType.JunctionRight)
+                _graph.JunctionCoords[nodeObject.GetComponent<JunctionNode>()] = coords;
         }
 
         /// <summary>
@@ -79,7 +83,7 @@ namespace Graphics
             var finishCoords = finish.transform.position;
 
             var pathCoords = Tuple.Create(startCoords, finishCoords);
-            GraphManager.Instance.Graph.PathsActivity[pathCoords] = isActive;
+            _graph.PathsActivity[pathCoords] = isActive;
             
             line.Connect(startCoords, finishCoords);
             line.SetPathActive(isActive);
@@ -92,6 +96,7 @@ namespace Graphics
 
         private void Awake()
         {
+            _graph = GraphManager.Instance.Graph;
             InitializeGrid();
         }
 

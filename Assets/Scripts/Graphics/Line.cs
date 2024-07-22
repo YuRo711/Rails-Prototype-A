@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Graphics
@@ -23,15 +24,27 @@ namespace Graphics
         public void Connect(Vector3 start, Vector3 end)
         {
             lineRenderer.SetPositions(new[] {start, end});
+            
+            startPoint = start;
+            endPoint = end;
         }
         
         /// <summary>
-        /// Sets the color according to activity
+        /// Sets the color according to local activity
         /// </summary>
         public void SetPathActive(bool isActive)
         {
             lineRenderer.startColor = isActive ? activeColor : inactiveColor;
             lineRenderer.endColor = isActive ? activeColor : inactiveColor;
+        }
+        
+        /// <summary>
+        /// Sets the activity according to graph
+        /// </summary>
+        public void UpdateActivity()
+        {
+            var isActive = GraphManager.Instance.Graph.PathsActivity[Tuple.Create(startPoint, endPoint)];
+            SetPathActive(isActive);
         }
 
         #endregion
