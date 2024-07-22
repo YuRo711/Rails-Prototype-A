@@ -18,7 +18,6 @@ namespace Graphics
         [SerializeField] private PrefabOptions prefabOptions;
         
         private readonly List<GameObject> _nodes = new();
-        private readonly Graph _graph = new();
 
         #endregion
 
@@ -31,7 +30,6 @@ namespace Graphics
         {
             CreateNodes();
             CreatePaths();
-            FindObjectOfType<PlayerMovement>().Graph = _graph;
         }
 
         private void CreateNodes()
@@ -67,7 +65,7 @@ namespace Graphics
             
             var nodeObject = Instantiate(prefab, coords, Quaternion.identity, transform);
             _nodes.Add(nodeObject);
-            _graph.PointTypes[nodeObject.transform.position] = nodeType;
+            GraphManager.Instance.Graph.PointTypes[nodeObject.transform.position] = nodeType;
         }
 
         /// <summary>
@@ -81,7 +79,7 @@ namespace Graphics
             var finishCoords = finish.transform.position;
 
             var pathCoords = Tuple.Create(startCoords, finishCoords);
-            _graph.PathsActivity[pathCoords] = isActive;
+            GraphManager.Instance.Graph.PathsActivity[pathCoords] = isActive;
             
             line.Connect(startCoords, finishCoords);
             line.SetPathActive(isActive);

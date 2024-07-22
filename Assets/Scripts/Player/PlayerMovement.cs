@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Graphics;
 using Logic;
 using Nodes;
 using ScriptableObjects;
@@ -11,8 +12,6 @@ namespace Player
     public class PlayerMovement : MonoBehaviour
     {
         #region Fields
-
-        public Graph Graph;
         
         [SerializeField] private float speed;
         [SerializeField] private NodeEvents nodeEvents;
@@ -21,6 +20,7 @@ namespace Player
         private Vector3 _nextPoint;
         private float _progressToNext;
         private bool _isNextSet;
+        private Graph _graph;
 
         #endregion
         
@@ -39,7 +39,7 @@ namespace Player
         /// </summary>
         public void GetNextPoint()
         {
-            _nextPoint = Graph.PathsActivity
+            _nextPoint = _graph.PathsActivity
                 .First(pathActivity =>
                     pathActivity.Key.Item1 == _lastPoint && pathActivity.Value)
                 .Key.Item2;
@@ -73,7 +73,7 @@ namespace Player
         private void UpdatePoint()
         {
             // Checks if the next node is a finish, dead end, etc/
-            if (nodeEvents.IsNodeFinal(Graph.PointTypes[_nextPoint]))
+            if (nodeEvents.IsNodeFinal(_graph.PointTypes[_nextPoint]))
             {
                 enabled = false;
                 return;
@@ -89,8 +89,8 @@ namespace Player
 
         private void Update()
         {
-            if (Graph == null) 
-                return;
+            if (_graph == null) 
+                _graph = GraphManager.Instance.Graph;
             if (!_isNextSet)
                 GetNextPoint();
             
